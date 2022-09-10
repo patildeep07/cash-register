@@ -3,17 +3,19 @@ const givenAmount = document.querySelector("#given-amount")
 const checkButton = document.querySelector("#check-button");
 const message = document.querySelector("#error-message");
 const noOfNotes = document.querySelectorAll(".number-of-notes");
+const table = document.querySelector(".table-div")
 
 const secondHalf = document.querySelector(".block");
 const nextButton = document.querySelector("#show-change-given")
 
-var notesAvailable = [2000, 500, 200, 100, 20, 5, 1];
+var notesAvailable = [2000, 500, 100, 20, 10, 5, 1];
 
 nextButton.addEventListener("click", validateAmount);
 checkButton.addEventListener("click", returnGivenAmount);
 
 hideMessage();
 hideBlock();
+hideTable();
 
 function validateAmount() {
     if (billAmount.value > 0) {
@@ -29,11 +31,16 @@ function validateAmount() {
 
 function returnGivenAmount (){    
 
-    if ((billAmount.value - givenAmount.value) <= 0 ) {
+    if ((billAmount.value - givenAmount.value) < 0 ) {
         hideMessage();
+        showTable();
         var amountToBeReturned = givenAmount.value - billAmount.value ;
         calculateChange(amountToBeReturned);
         
+    }
+    else if(billAmount.value === givenAmount.value){
+        showMessage();
+        displayMsg("No change is required")
     }
     else {
         showMessage();
@@ -71,4 +78,12 @@ function hideBlock () {
 
 function showBlock () {
     secondHalf.style.display = "block";
+}
+
+function hideTable () {
+    table.style.display = "none";
+}
+
+function showTable () {
+    table.style.display = "block";
 }
